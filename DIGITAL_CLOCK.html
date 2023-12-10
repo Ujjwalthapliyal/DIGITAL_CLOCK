@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background: linear-gradient(to bottom, #333, #000);
+    }
+
+    #clock-container {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    }
+
+    #clock {
+      font-family: 'Arial', sans-serif;
+      font-size: 3em;
+      color: #333;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      transform: perspective(500px) rotateX(20deg);
+      transition: transform 0.5s ease-in-out;
+      
+    }
+   
+  </style>
+  <title>Digital Clock</title>
+</head>
+<body>
+  <div id="clock-container">
+    <div id="clock"></div>
+  </div>
+
+  <script>
+    function updateClock() {
+      const now = new Date();
+      let hours = now.getHours();
+      let minutes = now.getMinutes();
+      let seconds = now.getSeconds();
+      const ampm = hours >= 12 ? 'PM' : 'AM';
+
+      // Convert to 12-hour format
+      hours = hours % 12 || 12;
+
+      // Update the clock text
+      document.getElementById('clock').innerHTML = `${hours}:${padZero(minutes)}:${padZero(seconds)} ${ampm}`;
+
+      // Schedule the next update in 1 second
+      setTimeout(updateClock, 1000);
+    }
+
+    function padZero(num) {
+      return num < 10 ? `0${num}` : num;
+    }
+
+    // Initial call to set up the clock
+    updateClock();
+  </script>
+</body>
+</html>
